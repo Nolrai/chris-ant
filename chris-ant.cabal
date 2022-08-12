@@ -1,0 +1,141 @@
+cabal-version:      2.4
+name:               chris-ant
+version:            0.1.0.0
+
+--A short (one-line) description of the package.
+synopsis: an attempt at https://codeforces.com/problemset/problem/1552/F
+
+-- A longer description of the package.
+-- description:
+
+-- A URL where users can report bugs.
+-- bug-reports:
+
+-- The license under which the package is released.
+license:            see LICENSE
+
+author:             Christina A. Upshaw
+maintainer:         chrisaupshaw@gmail.com
+
+-- A copyright notice.
+copyright: Christina A. Upshaw 2022
+-- category:
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+
+extra-source-files:
+  README.md
+  CHANGELOG.md
+
+library
+  default-language:  Haskell2010
+  hs-source-dirs:    src
+  exposed-modules:   Lib
+  build-depends:     base >= 4.8 && < 5
+  ghc-options:         -Wall
+                       -Werror
+                       -Wcompat
+                       -Widentities
+                       -Wincomplete-record-updates
+                       -Wincomplete-uni-patterns
+                       -Wmissing-export-lists
+                       -Wmissing-home-modules
+                       -Wpartial-fields
+                       -Wredundant-constraints
+                       -O2
+
+executable chris-ant-exe
+  default-language:  Haskell2010
+  hs-source-dirs:    src-exe
+  main-is:           Main.hs
+  build-depends:     base >= 4.8 && < 5
+                   , chris-ant
+  ghc-options:       -Wall
+                     -Werror
+                     -Wcompat
+                     -Widentities
+                     -Wincomplete-record-updates
+                     -Wincomplete-uni-patterns
+                     -Wmissing-export-lists
+                     -Wmissing-home-modules
+                     -Wpartial-fields
+                     -Wredundant-constraints
+                     -O2
+                     -threaded
+                     -rtsopts
+                     -with-rtsopts=-N
+
+test-suite chris-ant-test
+  type:              exitcode-stdio-1.0
+  default-language:  Haskell2010
+  hs-source-dirs:    src-test
+  main-is:           Main.hs
+  build-depends:     base >= 4.8 && < 5
+                   , tasty >= 0.11
+                   , tasty-hunit >= 0.9
+                   , tasty-smallcheck >= 0.8
+                   , chris-ant
+  ghc-options:       -Wall
+                     -Werror
+                     -Wcompat
+                     -Widentities
+                     -Wincomplete-record-updates
+                     -Wincomplete-uni-patterns
+                     -Wmissing-export-lists
+                     -Wmissing-home-modules
+                     -Wpartial-fields
+                     -Wredundant-constraints
+                     -O2
+                     -threaded
+                     -rtsopts
+                     -with-rtsopts=-N
+
+test-suite chris-ant-doctest
+  type:              exitcode-stdio-1.0
+  default-language:  Haskell2010
+  hs-source-dirs:    src-doctest
+  main-is:           Main.hs
+  build-depends:     base >= 4.8 && < 5
+                   , doctest >=0.10
+                   , Glob >= 0.7
+                   , QuickCheck >= 2.5
+                   , chris-ant
+  ghc-options:       -Wall
+                     -Werror
+                     -Wcompat
+                     -Widentities
+                     -Wincomplete-record-updates
+                     -Wincomplete-uni-patterns
+                     -Wmissing-export-lists
+                     -Wmissing-home-modules
+                     -Wpartial-fields
+                     -Wredundant-constraints
+                     -O2
+                     -threaded
+                     -rtsopts
+                     -with-rtsopts=-N
+
+benchmark chris-ant-benchmark
+  type:              exitcode-stdio-1.0
+  default-language:  Haskell2010
+  hs-source-dirs:    src-benchmark
+  main-is:           Main.hs
+  build-depends:     base >= 4.8 && < 5
+                   , criterion >= 1.1
+                   , chris-ant
+  ghc-options:       -Wall
+                     -Werror
+                     -Wcompat
+                     -Widentities
+                     -Wincomplete-record-updates
+                     -Wincomplete-uni-patterns
+                     -Wmissing-export-lists
+                     -Wmissing-home-modules
+                     -Wpartial-fields
+                     -Wredundant-constraints
+                     -O2
+                     -threaded
+                     -rtsopts
+                     -with-rtsopts=-N
