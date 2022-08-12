@@ -12,7 +12,7 @@ synopsis: an attempt at https://codeforces.com/problemset/problem/1552/F
 -- bug-reports:
 
 -- The license under which the package is released.
-license:            see LICENSE
+license:            MIT
 
 author:             Christina A. Upshaw
 maintainer:         chrisaupshaw@gmail.com
@@ -34,6 +34,7 @@ library
   hs-source-dirs:    src
   exposed-modules:   Lib
   build-depends:     base >= 4.8 && < 5
+                   , mtl >= 2.2.2
   ghc-options:         -Wall
                        -Werror
                        -Wcompat
