@@ -5,48 +5,37 @@
 module Lib
   (
     -- * Exported functions
-    inc,
-    naiveLoop
+    naiveLoop,
+    IsOpen,
+    Door (..),
+    AntEnv (..),
+    AntState (..),
+    src,
+    dest,
   ) where
     
 import Relude
 import Control.Monad.RWS
 import Data.Vector as V
 import Control.Lens
-
--- | Increment one 'Num' value.
---
---  >>> let answer = 42 :: Int
---  >>> let prev = answer - 1
---  >>> inc prev
---  42
---  >>> succ . Prelude.last . Prelude.take prev . iterate inc $ 1
---  42
---
---  Properties:
---
---  prop> succ x == inc x
---  prop> inc (negate x) == negate (pred x)
---
-inc :: Num a => a -- ^ value to increment
-             -> a -- ^ result
-inc x = x + 1
-
 type IsOpen = Bool
 
 data Door = Door {_src :: Word64, _dest :: Word64}
+  deriving (Eq, Show)
 makeLenses ''Door
 
 data AntEnv = AntEnv {_doorSpecs :: Vector Door, _lineLength :: Word64}
+  deriving (Eq, Show)
 makeLenses ''AntEnv
 
 data AntState = AntState {_antPos :: Word64, _doorStates :: Vector IsOpen}
+  deriving (Eq, Show)
 makeLenses ''AntState
 
 takeStep :: RWS AntEnv (Sum Integer) AntState ()
 takeStep = do
   tell 1
-  antPos %= inc
+  antPos %= (+1)
 
 checkDoors :: RWS AntEnv (Sum Integer) AntState (Maybe Door)
 checkDoors = do

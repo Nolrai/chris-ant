@@ -1,8 +1,18 @@
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+
 import Test.Tasty
 import Test.Tasty.HUnit
-import Test.Tasty.SmallCheck
+-- import Test.Tasty.SmallCheck
 
-import Lib (inc)
+-- import Lib 
+import Example
+import ParseInput
+
+import Text.Megaparsec
+import Data.Vector
+import Relude hiding (readFile)
+import Data.ByteString (readFile)
 
 main :: IO ()
 main = defaultMain $ testGroup "all-tests" tests
@@ -15,24 +25,26 @@ tests =
 
 scTests :: [TestTree]
 scTests =
-  [ testProperty "inc == succ" prop_succ
-  , testProperty "inc . negate == negate . pred" prop_pred
+  [ 
+    -- testProperty "inc == succ" prop_succ
+  -- , testProperty "inc . negate == negate . pred" prop_pred
   ]
 
 huTests :: [TestTree]
-huTests =
-  [ testCase "Increment below TheAnswer" case_inc_below
-  , testCase "Decrement above TheAnswer" case_dec_above
-  ]
+huTests = case_read_example <$> [0 .. 3]
 
-prop_succ :: Int -> Bool
-prop_succ n = inc n == succ n
+case_read_example :: Int -> TestTree
+case_read_example n = testCase ("read example " <> show n) (readExample n)
 
-prop_pred :: Int -> Bool
-prop_pred n = inc (negate n) == negate (pred n)
+readExample :: Int -> Assertion
+readExample n = do
+  let filepath = "./input/example" <> show n <> ".txt"
+  either 
+    (assertFailure . errorBundlePretty) -- parse failed
+    ((examples ! n) @=?) -- parse succeded, test if it equals expected
+    =<< readInputFile filepath
 
-case_inc_below :: Assertion
-case_inc_below = inc 41 @?= (42 :: Int)
-
-case_dec_above :: Assertion
-case_dec_above = negate (inc (negate 43)) @?= (42 :: Int)
+readInputFile :: String -> IO (Either (ParseErrorBundle Text CustomError) Example)
+readInputFile filename = do
+  (text :: Text) <- decodeUtf8 <$> readFile filename
+  pure $ parse parseExample filename text
