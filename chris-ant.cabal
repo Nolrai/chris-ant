@@ -1,0 +1,154 @@
+cabal-version:      2.4
+name:               chris-ant
+version:            0.1.0.0
+
+--A short (one-line) description of the package.
+synopsis: an attempt at https://codeforces.com/problemset/problem/1552/F
+
+-- A longer description of the package.
+-- description:
+
+-- A URL where users can report bugs.
+-- bug-reports:
+
+-- The license under which the package is released.
+license:            MIT
+
+author:             Christina A. Upshaw
+maintainer:         chrisaupshaw@gmail.com
+
+-- A copyright notice.
+copyright: Christina A. Upshaw 2022
+-- category:
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+extra-source-files:
+  README.md
+  CHANGELOG.md
+
+library
+  default-language:  Haskell2010
+  hs-source-dirs:    src
+  exposed-modules:   Naive
+                   , Example
+                   , ParseInput
+  build-depends:     base >= 4.8 && < 5
+                   , mtl >= 2.2.2 && < 3
+                   , vector >= 0.13 && < 1
+                   , lens >= 5.1.1 && < 6
+                   , relude >= 1.1.0.0 && < 2
+                   , megaparsec >= 9.1 && < 9.2
+  ghc-options:         -Wall
+                       -Werror
+                       -Wcompat
+                       -Widentities
+                       -Wincomplete-record-updates
+                       -Wincomplete-uni-patterns
+                       -Wmissing-export-lists
+                       -Wmissing-home-modules
+                       -Wpartial-fields
+                       -Wredundant-constraints
+                       -O2
+
+executable chris-ant-exe
+  default-language:  Haskell2010
+  hs-source-dirs:    src-exe
+  main-is:           Main.hs
+  build-depends:     base >= 4.8 && < 5
+                   , chris-ant
+                   , megaparsec >= 9.0 && < 9.2
+                   , vector >= 0.13 && < 0.14
+                   , relude >= 1.1 && < 1.2
+                   , lens >= 5.1.1 && < 5.2
+  ghc-options:       -Wall
+                     -Werror
+                     -Wcompat
+                     -Widentities
+                     -Wincomplete-record-updates
+                     -Wincomplete-uni-patterns
+                     -Wmissing-export-lists
+                     -Wmissing-home-modules
+                     -Wpartial-fields
+                     -Wredundant-constraints
+                     -O2
+                     -threaded
+                     -rtsopts
+                     -with-rtsopts=-N
+
+test-suite chris-ant-test
+  type:              exitcode-stdio-1.0
+  default-language:  Haskell2010
+  hs-source-dirs:    src-test
+  main-is:           Main.hs
+  build-depends:     base >= 4.8 && < 5
+                   , hspec >= 2.10.0.1 && < 2.11
+                   , hspec-expectations >= 0.8.2 && < 0.9
+                   , chris-ant
+                   , megaparsec >= 9.1 && < 9.2
+                   , vector >= 0.13 && < 0.14
+                   , relude >= 1.1 && < 1.2
+  ghc-options:       -Wall
+                     -Werror
+                     -Wcompat
+                     -Widentities
+                     -Wincomplete-record-updates
+                     -Wincomplete-uni-patterns
+                     -Wmissing-export-lists
+                     -Wmissing-home-modules
+                     -Wpartial-fields
+                     -Wredundant-constraints
+                     -O2
+                     -threaded
+                     -rtsopts
+                     -with-rtsopts=-N
+
+test-suite chris-ant-doctest
+  type:              exitcode-stdio-1.0
+  default-language:  Haskell2010
+  hs-source-dirs:    src-doctest
+  main-is:           Main.hs
+  build-depends:     base >= 4.8 && < 5
+                   , doctest >=0.10
+                   , Glob >= 0.7
+                   , QuickCheck >= 2.5
+                   , chris-ant
+  ghc-options:       -Wall
+                     -Werror
+                     -Wcompat
+                     -Widentities
+                     -Wincomplete-record-updates
+                     -Wincomplete-uni-patterns
+                     -Wmissing-export-lists
+                     -Wmissing-home-modules
+                     -Wpartial-fields
+                     -Wredundant-constraints
+                     -O2
+                     -threaded
+                     -rtsopts
+                     -with-rtsopts=-N
+
+benchmark chris-ant-benchmark
+  type:              exitcode-stdio-1.0
+  default-language:  Haskell2010
+  hs-source-dirs:    src-benchmark
+  main-is:           Main.hs
+  build-depends:     base >= 4.8 && < 5
+                   , criterion >= 1.1
+                   , chris-ant
+                   , vector >= 0.13 && < 0.14
+  ghc-options:       -Wall
+                     -Werror
+                     -Wcompat
+                     -Widentities
+                     -Wincomplete-record-updates
+                     -Wincomplete-uni-patterns
+                     -Wmissing-export-lists
+                     -Wmissing-home-modules
+                     -Wpartial-fields
+                     -Wredundant-constraints
+                     -O2
+                     -threaded
+                     -rtsopts
+                     -with-rtsopts=-N
