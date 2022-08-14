@@ -6,7 +6,7 @@
 module ParseInput (parseExample, Parser, CustomError, buildExample) where
 
 import Example
-import Lib
+import Naive
 import Relude
 import Text.Megaparsec as M
 import Text.Megaparsec.Char (eol, char, hspace1)
@@ -28,7 +28,7 @@ word64 :: Parser Word64
 word64 = lexeme' decimal
 
 bit :: Parser IsOpen
-bit = lexeme' $ (char '0' *> pure False <|> char '1' *> pure True)
+bit = lexeme' (char '0' $> False <|> char '1' $> True)
 
 lineParsers :: Int -> Vector (Parser (Word64, Word64, Bool))
 lineParsers size = V.replicate size $ ((,,) <$> word64 <*> word64 <*> bit) <* eol'

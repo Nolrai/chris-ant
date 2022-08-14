@@ -5,7 +5,7 @@
 
 import Test.Hspec hiding (Example)
 
--- import Lib 
+-- import Naive 
 import Example
 import ParseInput
 
