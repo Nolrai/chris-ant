@@ -1,9 +1,9 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE OverloadedLists #-}
+-- {-# LANGUAGE TypedHoles #-}
 
-import Test.Tasty
-import Test.Tasty.HUnit
--- import Test.Tasty.SmallCheck
+import Test.Hspec hiding (Example)
 
 -- import Lib 
 import Example
@@ -11,37 +11,23 @@ import ParseInput
 
 import Text.Megaparsec
 import Data.Vector
-import Relude hiding (readFile)
+import Relude hiding (readFile, forM_)
 import Data.ByteString (readFile)
 
 main :: IO ()
-main = defaultMain $ testGroup "all-tests" tests
+main = hspec $ do
+  describe "ParseInput" $ 
+    [0 .. 3] `forM_` case_read_example
 
-tests :: [TestTree]
-tests =
-  [ testGroup "SmallCheck" scTests
-  , testGroup "Unit tests" huTests
-  ]
+case_read_example :: Int -> Spec
+case_read_example n = it ("can read example " <> show n) (readExample n)
 
-scTests :: [TestTree]
-scTests =
-  [ 
-    -- testProperty "inc == succ" prop_succ
-  -- , testProperty "inc . negate == negate . pred" prop_pred
-  ]
-
-huTests :: [TestTree]
-huTests = case_read_example <$> [0 .. 3]
-
-case_read_example :: Int -> TestTree
-case_read_example n = testCase ("read example " <> show n) (readExample n)
-
-readExample :: Int -> Assertion
+readExample :: Int -> Expectation
 readExample n = do
   let filepath = "./input/example" <> show n <> ".txt"
   either 
-    (assertFailure . errorBundlePretty) -- parse failed
-    ((examples ! n) @=?) -- parse succeded, test if it equals expected
+    (expectationFailure . errorBundlePretty) -- parse failed
+    (`shouldBe` (examples ! n)) -- parse succeded, test if it equals expected
     =<< readInputFile filepath
 
 readInputFile :: String -> IO (Either (ParseErrorBundle Text CustomError) Example)

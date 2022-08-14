@@ -77,7 +77,7 @@ example2 =
 example3 :: Example
 example3 = 
     let _antPos = 0
-        _doorStates = V.map (== (1 :: Int)) [0,0,0,0,0]
+        _doorStates = V.map (== (1 :: Int)) [1,0,0,1,0]
         _startState = AntState {..}
         _doorSpecs = 
                 [ Door {_src =  200000000, _dest = 100000000}
@@ -88,5 +88,5 @@ example3 =
                 ] 
         _lineLength = V.maximum $ V.map (^. src) _doorSpecs
         _env = AntEnv {..}
-        _expected = Just (_lineLength + 1) in
+        _expected = Just 3511295 in
     Example {..}

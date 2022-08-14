@@ -83,9 +83,8 @@ test-suite chris-ant-test
   hs-source-dirs:    src-test
   main-is:           Main.hs
   build-depends:     base >= 4.8 && < 5
-                   , tasty >= 0.11
-                   , tasty-hunit >= 0.9
-                   , tasty-smallcheck >= 0.8
+                   , hspec >= 2.10.0.1 && < 2.11
+                   , hspec-expectations >= 0.8.2 && < 0.9
                    , chris-ant
                    , megaparsec >= 9.1 && < 9.2
                    , vector >= 0.13 && < 0.14

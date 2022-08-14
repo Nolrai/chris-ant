@@ -37,7 +37,7 @@ parseExample :: Parser Example
 parseExample = do
     size <- decimal <* eol'
     v <- sequenceA $ lineParsers size
-    trace ("v = " <> show v) $ pure ()
+    -- trace ("v = " <> show v) $ pure ()
     expected' <- optional (decimal <* eol')
     eof
     pure $ buildExample v expected'
